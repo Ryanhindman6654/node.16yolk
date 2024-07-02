@@ -13,11 +13,14 @@ RUN apt-get update && apt-get install -y curl && curl -I https://registry.npmjs.
 # Update and install system dependencies
 RUN apt-get update && apt-get install -y python g++ make
 
-# Verify Node.js version
+# Verify Node.js and npm versions
 RUN node -v && npm -v
 
+# Debugging: Display current working directory and contents
+RUN pwd && ls -la
+
 # Install application dependencies with verbose logging
-RUN npm install --verbose
+RUN npm config set loglevel verbose && npm install
 
 # Copy the application code to the container
 COPY . .
