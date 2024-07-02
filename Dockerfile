@@ -7,7 +7,16 @@ WORKDIR /usr/src/app
 # Copy package.json and package-lock.json first to leverage Docker cache
 COPY package*.json ./
 
-# Install application dependencies
+# Check network connectivity
+RUN apt-get update && apt-get install -y curl && curl -I https://registry.npmjs.org/
+
+# Update and install system dependencies
+RUN apt-get update && apt-get install -y python g++ make
+
+# Verify Node.js version
+RUN node -v && npm -v
+
+# Install application dependencies with verbose logging
 RUN npm install --verbose
 
 # Copy the application code to the container
