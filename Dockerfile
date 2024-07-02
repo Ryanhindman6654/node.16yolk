@@ -16,11 +16,17 @@ RUN apt-get update && apt-get install -y python g++ make
 # Verify Node.js and npm versions
 RUN node -v && npm -v
 
+# Output environment variables
+RUN printenv
+
+# Set NPM registry to HTTP for debugging SSL issues
+RUN npm config set registry http://registry.npmjs.org/
+
 # Debugging: Display current working directory and contents
 RUN pwd && ls -la
 
 # Install application dependencies with verbose logging
-RUN npm config set loglevel verbose && npm install
+RUN npm config set loglevel verbose && npm install || { cat npm-debug.log; exit 1; }
 
 # Copy the application code to the container
 COPY . .
