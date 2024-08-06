@@ -20,7 +20,7 @@
 # SOFTWARE.
 #
 
-FROM --platform=$TARGETOS/$TARGETARCH node:16.13.2-alpine
+FROM --platform=$TARGETOS/$TARGETARCH node:20.5.1-alpine
 
 LABEL author="Matthew Penner" maintainer="matthew@pterodactyl.io"
 
